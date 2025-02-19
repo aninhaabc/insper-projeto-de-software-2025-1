@@ -1,6 +1,7 @@
 package br.insper.loja.compra;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,12 +14,17 @@ public class CompraController {
     private CompraService compraService;
 
     @GetMapping
-    public List<Compra> getCompras() {
-        return compraService.getCompras();
+    public ResponseEntity<List<Compra>> getCompras() {
+        return ResponseEntity.ok(compraService.getCompras());
     }
 
     @PostMapping
-    public Compra salvarCompra(@RequestBody Compra compra) {
-        return compraService.salvarCompra(compra);
+    public ResponseEntity<?> salvarCompra(@RequestBody Compra compra) {
+        try {
+            Compra compraSalva = compraService.salvarCompra(compra);
+            return ResponseEntity.ok(compraSalva);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
