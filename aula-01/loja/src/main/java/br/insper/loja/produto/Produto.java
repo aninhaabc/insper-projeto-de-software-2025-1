@@ -1,2 +1,4 @@
-package br.insper.loja.produto;public class Produto {
+package br.insper.loja.produto;
+
+public class Produto {
 }
